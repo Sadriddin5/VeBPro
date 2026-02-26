@@ -10,8 +10,7 @@
   background: url(Img/background.png);
   background-size: cover;
   background-repeat: no-repeat;
-  margin-top: -4.55rem;
-  padding-top: 4.55rem;
+
 
 }
 /*
@@ -20,15 +19,19 @@
   font-style: normal;
 */
 .OneMain{
-  margin:0 auto;
+  
+  padding-top: 10%;
+  margin: auto;
   display: flex;
  max-width: 76.875rem;
  width: 100%;
-  margin-top: 10%;
   justify-content: space-between;
   margin-bottom: 1.5%;
 }
-
+.OneMain img{
+  width: 36.875rem;
+  height: 32.875rem;
+}
 .OneLeft h2{
    font-family: "Lato", sans-serif;
   font-weight: 1000;

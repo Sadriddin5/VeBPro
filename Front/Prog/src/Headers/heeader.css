@@ -6,7 +6,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+body{
+    background-color: rgba(30, 33, 44, 1);
+}
 .head{
+    background-color: rgba(30, 33, 44, 1);
     padding-top: 1.25rem;
     height: 7.8vh;
     width: 76.875rem;
