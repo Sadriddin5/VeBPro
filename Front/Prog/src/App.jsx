@@ -25,7 +25,7 @@ function App() {
             </div>
           </div>
         </div>
-        <img src={ilya}  alt="" />
+        <img className='ilya' src={ilya}  alt="" />
 
         </div>
         <div className="futerdiv">

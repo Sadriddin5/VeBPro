@@ -11,9 +11,10 @@ body{
 }
 .head{
     background-color: rgba(30, 33, 44, 1);
-    padding-top: 1.25rem;
-    height: 7.8vh;
+    padding-top: 20px;
+    height: 121px;
     width: 76.875rem;
+        align-items: center;
     display: flex;
     justify-content: space-between;
     margin: 0 auto;

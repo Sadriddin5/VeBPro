@@ -20,17 +20,18 @@
 */
 .OneMain{
   
-  padding-top: 10%;
+  padding-top: 15%;
   margin: auto;
   display: flex;
+  height: 35rem;
  max-width: 76.875rem;
  width: 100%;
   justify-content: space-between;
   margin-bottom: 1.5%;
 }
-.OneMain img{
-  width: 36.875rem;
-  height: 32.875rem;
+.ilya{
+  width: 35%;
+  height: 90%;
 }
 .OneLeft h2{
    font-family: "Lato", sans-serif;
@@ -74,12 +75,14 @@ margin-top: 3rem;
   color: rgba(255, 255, 255, 1);
 }
 .futerdiv{
+
    display: flex;
   width: 100%;
   max-width: 1230px;
   margin: 0 auto;
+  height: 400px;
   justify-content: space-between;
-  padding: 0 20px;
+ 
 }
 .fut1{
   display: flex;
