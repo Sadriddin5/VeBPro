@@ -1,0 +1,17 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.futerSec{
+    height: 31.75rem;
+   width: 100vw;
+
+}
+.MainFut{
+    height: 100%;
+    width: 76.875rem;
+    margin: auto;
+    
+}
