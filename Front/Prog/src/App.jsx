@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <div className="secOne">
-      <div className="OneMain container">
+      <div className="OneMain">
         <div className="OneLeft">
           <h2>Best <span>SEO & Marketing</span> Solutions for You</h2>
           <div className="Onebuts">
