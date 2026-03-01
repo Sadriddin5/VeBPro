@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import axios from 'axios'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { Link } from 'react-router-dom'
@@ -7,6 +8,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import pic from './Img/pic.png'
+import pic2 from './Img/pic2.png'
 import ilya from './Img/illustration.png'
 import play from './Img/hover.png'
 import fut1 from './Img/ic-chart.png'
@@ -41,10 +44,67 @@ import ic12 from './Img/ic-checklist.png'
 import ic13 from './Img/ic-chat.png'
 import ic14 from './Img/ic-like.png'
 import ic15 from './Img/ic-view.png'
+import Slider1 from './Pages/slider1.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
+const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    website: '',
+    agreement: false
+});
 
+const [loading, setLoading] = useState(false);
+const [message, setMessage] = useState('');
+const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    setFormData(prev => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : value
+    }));
+};
+const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.website) {
+        setMessage("Заполните все поля");
+        return;
+    }
+
+    if (!formData.agreement) {
+        setMessage("Необходимо принять соглашение");
+        return;
+    }
+
+    try {
+        setLoading(true);
+        setMessage("");
+
+        const response = await axios.post(
+            "http://localhost:3000/seo-request",
+            formData
+        );
+
+        if (response.data.success) {
+            setMessage("Заявка успешно отправлена!");
+            setFormData({
+                name: '',
+                email: '',
+                website: '',
+                agreement: false
+            });
+        }
+
+    } catch (error) {
+        setMessage(
+            error.response?.data?.message || "Ошибка отправки"
+        );
+    } finally {
+        setLoading(false);
+    }
+};
   return (
     <>
       <div className="secOne">
@@ -146,36 +206,92 @@ function App() {
         </div>
        </section>
        <section className='sec1B7DB'>
-       <div className="b7DBMain">
-         <img src={ilya2} alt="" />
-        <div className="b7right">
-          <h2>Get a Free SEO Analysis!</h2>
-          <div className='b7inputs'>
-            <div>
-              <p>Name</p>
-              <input placeholder='Your name' type="text" />
-            </div>
-            <div>
-              <p>Email</p>
-             <input placeholder='Your working email' type="text" />
-            </div>
-            
+  <div className="b7DBMain">
+    <img src={ilya2} alt="" />
+
+    <div className="b7right">
+      <h2>Get a Free SEO Analysis!</h2>
+
+      <form onSubmit={handleSubmit}>
+
+        <div className='b7inputs'>
+          <div>
+            <p>Name</p>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your name"
+              value={formData.name}
+              onChange={handleInputChange}
+              disabled={loading}
+            />
           </div>
-         <div className='biginputB7'>
-           <p>Your website URL</p>
-          <input  placeholder='http://yoursite.com' type="text" />
-         </div>
+
+          <div>
+            <p>Email</p>
+            <input
+              type="email"
+              name="email"
+              placeholder="Your working email"
+              value={formData.email}
+              onChange={handleInputChange}
+              disabled={loading}
+            />
+          </div>
+        </div>
+
+        <div className='biginputB7'>
+          <p>Your website URL</p>
+          <input
+            type="text"
+            name="website"
+            placeholder="http://yoursite.com"
+            value={formData.website}
+            onChange={handleInputChange}
+            disabled={loading}
+          />
+        </div>
+
         <div className="textButB7">
-         <div className="textb7">
-          <img src={ch} alt="" />
-          <p>I agree to receive communications from Createx SEO Agency</p>
+          <div className="textb7">
+            <input
+              type="checkbox"
+              name="agreement"
+              checked={formData.agreement}
+              onChange={handleInputChange}
+              disabled={loading}
+            />
+            <p>
+              I agree to receive communications from Createx SEO Agency
+            </p>
+          </div>
+
+          <button type="submit" disabled={loading}>
+            {loading ? "Sending..." : "Get a free analysis"}
+          </button>
         </div>
-        <button>Get a free analysis</button>
-       </div>
+
+      </form>
+
+      {message && (
+        <div style={{
+          marginTop: "15px",
+          padding: "10px",
+          backgroundColor: message.includes("успешно")
+            ? "#d4edda"
+            : "#f8d7da",
+          color: message.includes("успешно")
+            ? "#155724"
+            : "#721c24",
+          borderRadius: "4px",
+          textAlign: "center"
+        }}>
+          {message}
         </div>
-      
-       </div>
-       </section>
+      )}
+    </div>
+  </div>
+</section>
        <section className='s1b8'>
         <div className="s1b8Main">
           <div className="b8left">
@@ -193,89 +309,8 @@ function App() {
        </section>
         <section className="secB9Cases">
       <div className="b9CasesMain">
-
-        <div className="b9CasesTop">
-          <h2>Read our clients' case studies</h2>
-
-          <div className="b9Arrows">
-            <div className="b9Prev">←</div>
-            <div className="b9Next">→</div>
-          </div>
-        </div>
-
-        <Swiper
-          modules={[Navigation]}
-          slidesPerView={3}
-          spaceBetween={30}
-        
-           onSwiper={(swiper) => {
-    swiper.params.navigation.prevEl = ".b9Prev";
-    swiper.params.navigation.nextEl = ".b9Next";
-    swiper.navigation.init();
-    swiper.navigation.update();
-  }}
-          className="b9Swiper"
-        >
-          <SwiperSlide>
-            <div className="b9Card">
-              <div className="b9CardTop">
-                {/* logo */}
-              </div>
-
-              <p>
-                Createx SEO Agency helped National Inc. increase their
-                MQL to SQL conversion rate by 300%.
-              </p>
-
-              <div className="b9Stats">
-                <div>
-                  <span>90%</span>
-                  <p>Engagement</p>
-                </div>
-                <div>
-                  <span>100%</span>
-                  <p>Deliverability</p>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <div className="b9Card b9CardImage">
-              {/* background image */}
-              <div className="b9ImageStats">
-                <div>
-                  <span>200%</span>
-                  <p>Growth in sales</p>
-                </div>
-                <div>
-                  <span>1,400</span>
-                  <p>Target investors</p>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <div className="b9Card">
-              <div className="b9CardTop">
-                {/* logo */}
-              </div>
-
-              <div className="b9Stats">
-                <div>
-                  <span>70%</span>
-                  <p>Open Rate</p>
-                </div>
-                <div>
-                  <span>200%</span>
-                  <p>Growth in sales</p>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-        </Swiper>
-
+         <Slider1/>
+       
         <div className="b9Bottom">
           <p>Explore more case studies</p>
           <button>View all case studies</button>
@@ -443,7 +478,7 @@ function App() {
       
       <div className="b12Card">
         <div className="b12Img">
-          <img src="" alt="" />
+          <img src={pic2} alt="" />
         </div>
 
         <div className="b12Meta">
@@ -464,10 +499,9 @@ function App() {
         <a href="#">Read more →</a>
       </div>
 
-      {/* CARD */}
       <div className="b12Card">
         <div className="b12Img">
-         <img src="" alt="" />
+         <img src={pic} alt="" />
         </div>
 
         <div className="b12Meta">

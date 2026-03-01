@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import App from './App.jsx'
 import Header1 from './Headers/heeader.jsx'
 import Futer from './Headers/futer.jsx'
+import Servs from './Pages/services.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -12,9 +13,11 @@ createRoot(document.getElementById('root')).render(
     <Header1/>
      <Routes>
       <Route path='/' element={<App/>}/>
+      <Route path='/Services' element={<Servs/>}/>
+
     </Routes>
     <Futer/>
+
     </BrowserRouter>
-   
   </StrictMode>,
 )

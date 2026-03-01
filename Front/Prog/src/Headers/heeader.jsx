@@ -1,6 +1,7 @@
 
 
 import { Link } from 'react-router-dom'
+
 import logo from './imgs/logo.png'
 import './heeader.css'
 export default function Heeader(){
@@ -10,7 +11,7 @@ export default function Heeader(){
            
                 <div className="liks">
                     <img src={logo} alt="" />
-                <a href="">Services</a>
+                <Link to="Services">Services</Link>
                 <a href="">Case Studies</a>
                 <a href="">About Us</a>
                 <a href="">Blog</a>
